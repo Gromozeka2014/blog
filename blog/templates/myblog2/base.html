@@ -1,0 +1,38 @@
+{% load staticfiles %} {% load bootstrap3 %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Blog</title>
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'images/icon.ico' %}" rel="shortcut icon" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1">
+                <nav role="navigation" class="navbar navbar-default ">
+                    <div class="container-fluid">
+                        <a href="{% url 'users_list'  %}" class="navbar-brand">Блог</a>
+                        <div id="navbarCollapse" class="collapse navbar-collapse">
+                            {% block menu %} {% endblock %}
+                            <ul class="nav navbar-nav navbar-right">
+                                {% if user.is_authenticated %}
+                                <li class="disabled"><a> Привет, {{ request.user }}</a> </li>
+                                <li><a href="{% url 'log_out'  %}">Выйти</a></li>
+                                {% else %}
+                                <li><a href="{% url 'login'  %}">Авторизация</a></li>
+                                <li><a href="{% url 'register'  %}">Регистрация</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                {% block content %} {% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

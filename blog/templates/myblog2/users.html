@@ -1,0 +1,21 @@
+{% extends 'myblog2/base.html' %} {% load staticfiles %} {% load bootstrap3 %} {% block menu %}
+<ul class="nav navbar-nav">
+    <li class="active"><a href="{% url 'users_list' %}">Главная</a></li>
+    {% if user.is_authenticated %}
+    <li><a href="{% url 'list_of_posts' username=request.user %}">Мои записи</a></li>
+    <li><a href="{% url 'post_new' %}">Добавить пост</a></li>
+    {% endif %}
+</ul>
+{% endblock %} {% block content %}
+<div class="row center-block">
+    <div class="col-lg-6 col-lg-offset-3">
+        <h1> Пользователи:</h1> {% for user in users %}
+        <ul class="unstyled">
+            <li>
+                <h2><a class="unstyled" href="{% url 'list_of_posts' username=user.username %}">{{ user.username }} </a></h2></li>
+        </ul>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

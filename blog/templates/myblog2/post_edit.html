@@ -1,0 +1,21 @@
+{% extends 'myblog2/base.html' %} {% load bootstrap3%} {% load staticfiles %} {% block menu %}
+<ul class="nav navbar-nav">
+    <li><a href="{% url 'users_list' %}">Главная</a></li>
+    {% if user.is_authenticated %}
+    <li><a href="{% url 'list_of_posts' username=request.user %}">Мои записи</a></li>
+    <li><a href="{% url 'post_new' %}">Добавить пост</a></li>
+    {% endif %}
+</ul>
+{% endblock %} {% block content %}
+<form method="post" class="post-form">
+    <div class="container-fluid">
+        <div class="col-lg-6 col-lg-offset-3">
+            <h1>Редактировать пост:</h1>
+            <div class="form-group">
+                {% csrf_token %} {% bootstrap_form form %} {% buttons %}
+                <button class="save btn btn-success"> Сохранить</button> {% endbuttons %}
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
